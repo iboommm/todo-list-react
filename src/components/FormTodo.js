@@ -44,8 +44,8 @@ export function FormTodo() {
       </Form.Group>
       <Form.Check
         type='switch'
-        onClick={(e) => setIsDone(!isDone)}
-        defaultChecked={isDone}
+        onChange={(e) => setIsDone(!isDone)}
+        checked={isDone}
         id='isDone'
         label='Is done'
       />

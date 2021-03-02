@@ -15,10 +15,9 @@ export function Item({ children, ...props }) {
   async function onClickEditTodo() {
     const { _id } = item;
     let result = await apiGet(`todos/${_id}`);
-    const isDoneList = localStorage.getItem('itemDone') || '[]';
-    result.isDone = isDoneList.includes(_id) ? true : false;
-    handleShow('EDIT_TODO', result);
-    setForm(item);
+
+    handleShow('EDIT_TODO', { ...item, result });
+    setForm({ ...item, result });
   }
 
   function onClickRemoveTodo() {
