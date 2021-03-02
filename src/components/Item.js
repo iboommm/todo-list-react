@@ -13,8 +13,10 @@ export function Item({ children, ...props }) {
   dayjs.extend(relativeTime);
 
   async function onClickEditTodo() {
-    const { id } = item;
-    const result = await apiGet(`todos/${id}`);
+    const { _id } = item;
+    let result = await apiGet(`todos/${_id}`);
+    const isDoneList = localStorage.getItem('itemDone') || '[]';
+    result.isDone = isDoneList.includes(_id) ? true : false;
     handleShow('EDIT_TODO', result);
     setForm(item);
   }
