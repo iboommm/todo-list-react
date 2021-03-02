@@ -6,8 +6,9 @@ const todosContext = createContext();
 export function useProvideTodos() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isDone, setIsDone] = useState(false);
 
-  async function fetchList() {
+  async function fetchList(isDone) {
     setLoading(true);
     const res = await apiGet('todos');
     let { data } = res;
@@ -15,15 +16,20 @@ export function useProvideTodos() {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
     data = mergeTodoDone(data);
+    if (isDone) {
+      data = data.filter((x) => x.isDone);
+    }
+
     setTodos(data);
     setLoading(false);
+    setIsDone(isDone);
   }
 
   useEffect(() => {
     fetchList();
   }, []); // eslint-disable-line
 
-  return { todos, loading, setLoading, setTodos, fetchList };
+  return { todos, loading, isDone, setLoading, setTodos, setIsDone, fetchList };
 }
 
 export const ProvideList = ({ children }) => {

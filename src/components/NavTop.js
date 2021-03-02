@@ -1,13 +1,18 @@
-import { useAuth, useModal } from '../hooks';
+import { useAuth, useModal, useTodos } from '../hooks';
 import { Button, Navbar, Container } from 'react-bootstrap';
 import { Icon } from './';
 
 export function NavTop() {
   let auth = useAuth();
   let { handleShow } = useModal();
+  let { isDone, setIsDone, fetchList } = useTodos();
 
   function onClickProfile() {
     handleShow('ACCOUNT_SETTING');
+  }
+
+  function onClickFilter() {
+    fetchList(!isDone);
   }
 
   return auth.user ? (
@@ -25,9 +30,10 @@ export function NavTop() {
             <Icon icon='user' /> Account
           </Button>
           <Button
-            onClick={onClickProfile}
             variant='outline-secondary'
             size='sm'
+            className={isDone ? 'active' : ''}
+            onClick={onClickFilter}
           >
             <Icon icon='filter' />
           </Button>
