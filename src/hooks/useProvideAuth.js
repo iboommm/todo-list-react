@@ -8,25 +8,30 @@ export const useProvideAuth = () => {
   const [user, setUser] = useState(getUser);
 
   const signin = async (username, password, cb) => {
-    return await Auth.signin(async () => {
-      const result = await apiPost('/users/auth', { username, password });
-      if (result.status === 200) {
-        setUser(username);
-        localStorage.setItem('username', username);
-        localStorage.setItem('isAuthenticated', 1);
-        localStorage.setItem('user-token', result.data.token);
-        setToken(result.data.token);
-      }
-      cb();
-    });
+    const result = apiPost('/users/auth', { username, password })
+      .then((result) => {
+        if (result.status === 200) {
+          setUser(username);
+          localStorage.setItem('username', username);
+          localStorage.setItem('isAuthenticated', 1);
+          localStorage.setItem('user-token', result.data.token);
+          setToken(result.data.token);
+          cb({ valid: true, msg: '' });
+        }
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.toString().includes('401')) {
+          msg = 'Username or password has wrong.';
+        }
+        cb({ valid: false, msg });
+      });
   };
 
   const signout = (cb) => {
-    return Auth.signout(() => {
-      setUser(null);
-      localStorage.clear();
-      cb();
-    });
+    setUser(null);
+    localStorage.clear();
+    cb();
   };
 
   return {
@@ -54,14 +59,4 @@ export const isAuthenticated = () => {
     return true;
   }
   return false;
-};
-
-export const Auth = {
-  isAuthenticated: false,
-  async signin(cb) {
-    setTimeout(cb, 100);
-  },
-  signout(cb) {
-    setTimeout(cb, 100);
-  },
 };

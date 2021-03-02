@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useAuth, isAuthenticated } from '../hooks';
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Card,
+  Alert,
+} from 'react-bootstrap';
 import { Icon } from '../components';
 
 export const LoginPage = () => {
@@ -13,13 +21,29 @@ export const LoginPage = () => {
     history.push('/');
   }
 
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+  };
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [result, setResult] = useState({ valid: true });
 
   let { from } = location.state || { from: { pathname: '/' } };
-  let login = () => {
-    auth.signin(username, password, () => {
-      history.replace(from);
+  let login = (event) => {
+    handleSubmit(event);
+    if (username === '' || password === '') return;
+    auth.signin(username, password, (res) => {
+      setResult(res);
+      if (res.valid) history.replace(from);
     });
   };
 
@@ -30,7 +54,12 @@ export const LoginPage = () => {
           <Card>
             <Card.Header as='h5'>Login</Card.Header>
             <Card.Body>
-              <Form className='text-left'>
+              <Form
+                className='text-left'
+                noValidate
+                validated={validated}
+                onSubmit={login}
+              >
                 <Form.Group>
                   <Form.Label>
                     <Icon icon='user' />
@@ -41,7 +70,11 @@ export const LoginPage = () => {
                     placeholder='Enter username'
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    required
                   />
+                  <Form.Control.Feedback type='invalid'>
+                    Please provide a username.
+                  </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group>
@@ -54,16 +87,20 @@ export const LoginPage = () => {
                     placeholder='Enter password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
+                  <Form.Control.Feedback type='invalid'>
+                    Please provide a password.
+                  </Form.Control.Feedback>
                 </Form.Group>
-                <Button
-                  onClick={login}
-                  className='btn-block'
-                  variant='primary'
-                  type='button'
-                >
+                <Button className='btn-block' variant='primary' type='submit'>
                   Submit
                 </Button>
+                {!result.valid && (
+                  <Alert className='mt-2' variant='danger'>
+                    {result.msg}
+                  </Alert>
+                )}
               </Form>
             </Card.Body>
           </Card>
