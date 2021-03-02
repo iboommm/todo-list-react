@@ -27,7 +27,7 @@ export function Item({ children, ...props }) {
       </Button>
       <Card.Body onClick={onClickEditTodo} className='pl-3 p-2'>
         <Card.Title className='mb-0 font-title'>{item.title}</Card.Title>
-        <Card.Text>{item.description}</Card.Text>
+        <Card.Text className='pr-4'>{item.description}</Card.Text>
       </Card.Body>
     </Card>
   );
