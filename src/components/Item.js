@@ -17,7 +17,7 @@ export function Item({ children, ...props }) {
     setForm(item);
   }
   return (
-    <Card className='text-left m-2 shadow-bottom'>
+    <Card className='text-left m-2 shadow-bottom animate__animated animate__fadeInRight'>
       <Button
         onClick={onClickRemoveTodo}
         variant='danger'

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 import './index.css';
 import './assets/css/bootstrap.minty.min.css';
+import 'animate.css/animate.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
