@@ -1,11 +1,15 @@
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Badge } from 'react-bootstrap';
 import { Icon } from './Icon';
 import { useModal, useTodo } from '../hooks';
+import * as dayjs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
 
 export function Item({ children, ...props }) {
   const { item } = props;
   let { setForm } = useTodo();
   let { handleShow } = useModal();
+
+  dayjs.extend(relativeTime);
 
   function onClickEditTodo() {
     handleShow('EDIT_TODO', item);
@@ -27,7 +31,12 @@ export function Item({ children, ...props }) {
       </Button>
       <Card.Body onClick={onClickEditTodo} className='pl-3 p-2'>
         <Card.Title className='mb-0 font-title'>{item.title}</Card.Title>
-        <Card.Text className='pr-4'>{item.description}</Card.Text>
+        <Card.Text className='pr-4'>
+          {item.description} <br />
+          <Badge className='badge-time' variant='secondary'>
+            {dayjs(item.updatedAt).fromNow()}
+          </Badge>
+        </Card.Text>
       </Card.Body>
     </Card>
   );

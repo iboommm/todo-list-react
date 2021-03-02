@@ -8,7 +8,7 @@ export const useProvideAuth = () => {
   const [user, setUser] = useState(getUser);
 
   const signin = async (username, password, cb) => {
-    const result = apiPost('/users/auth', { username, password })
+    apiPost('/users/auth', { username, password })
       .then((result) => {
         if (result.status === 200) {
           setUser(username);
