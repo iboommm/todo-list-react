@@ -1,5 +1,4 @@
-import { Card, Button, Badge } from 'react-bootstrap';
-import { Icon } from './Icon';
+import { Toast } from 'react-bootstrap';
 import { useModal, useTodo } from '../hooks';
 import * as dayjs from 'dayjs';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
@@ -21,23 +20,18 @@ export function Item({ children, ...props }) {
     setForm(item);
   }
   return (
-    <Card className='text-left m-3 shadow-lg animate__animated animate__fadeInRight'>
-      <Button
-        onClick={onClickRemoveTodo}
-        variant='danger'
-        className='remove-button shadow-sm'
-      >
-        <Icon icon='trash' />
-      </Button>
-      <Card.Body onClick={onClickEditTodo} className='pl-3 p-2'>
-        <Card.Title className='mb-0 font-title'>{item.title}</Card.Title>
-        <Card.Text className='pr-4'>
-          {item.description} <br />
-          <Badge className='badge-time' variant='secondary'>
-            {dayjs(item.updatedAt).fromNow()}
-          </Badge>
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    <>
+      <Toast className='mw-100 ml-4 mr-4' onClose={() => onClickRemoveTodo()}>
+        <Toast.Header>
+          <strong onClick={onClickEditTodo} className='mr-auto'>
+            {item.title}
+          </strong>
+          <small>{dayjs(item.updatedAt).fromNow()}</small>
+        </Toast.Header>
+        <Toast.Body onClick={onClickEditTodo} className='text-left'>
+          {item.description}
+        </Toast.Body>
+      </Toast>
+    </>
   );
 }
