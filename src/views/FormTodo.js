@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import { useTodo } from '../hooks';
 
-export function FormTodo() {
+export default function FormTodo() {
   const {
     title,
     description,

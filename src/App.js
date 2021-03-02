@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { TodoPage, LoginPage } from './views';
+import { TodoPage, LoginPage } from './views/pages';
 import { ProvideAuth, ProvideModal, isAuthenticated } from './hooks';
 
 function PrivateRoute({ children, ...rest }) {

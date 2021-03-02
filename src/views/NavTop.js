@@ -1,6 +1,6 @@
 import { useAuth, useModal, useTodos } from '../hooks';
 import { Button, Navbar, Container } from 'react-bootstrap';
-import { Icon } from './';
+import { Icon } from '../components';
 
 export function NavTop() {
   let auth = useAuth();

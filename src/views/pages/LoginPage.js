@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useAuth, isAuthenticated } from '../hooks';
+import { useAuth, isAuthenticated } from '../../hooks';
 import {
   Container,
   Row,
@@ -10,7 +10,7 @@ import {
   Card,
   Alert,
 } from 'react-bootstrap';
-import { Icon } from '../components';
+import { Icon } from '../../components';
 
 export const LoginPage = () => {
   let history = useHistory();

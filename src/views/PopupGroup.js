@@ -10,7 +10,8 @@ import {
   EditTodo,
   RemoveTodo,
 } from '../hooks';
-import { Icon, FormTodo, Popup } from '../components';
+import { Icon, Popup } from '../components';
+import FormTodo from './FormTodo';
 
 export function PopupGroup() {
   const modal = useModal();
