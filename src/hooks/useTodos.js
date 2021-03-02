@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect, createContext } from 'react';
 import { apiGet } from '../api/connect';
+import { useHistory } from 'react-router-dom';
 
 const todosContext = createContext();
 
@@ -7,22 +8,31 @@ export function useProvideTodos() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  let history = useHistory();
 
   async function fetchList(isDone) {
     setLoading(true);
-    const res = await apiGet('todos');
-    let { data } = res;
-    data = data.sort(function (a, b) {
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    });
-    data = mergeTodoDone(data);
-    if (isDone) {
-      data = data.filter((x) => x.isDone);
-    }
+    const res = apiGet('todos')
+      .then((res) => {
+        let { data } = res;
+        data = data.sort(function (a, b) {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        data = mergeTodoDone(data);
+        if (isDone) {
+          data = data.filter((x) => x.isDone);
+        }
 
-    setTodos(data);
-    setLoading(false);
-    setIsDone(isDone);
+        setTodos(data);
+        setLoading(false);
+        setIsDone(isDone);
+      })
+      .catch((error) => {
+        if (error.toString().includes('401')) {
+          localStorage.clear();
+          history.push('/login');
+        }
+      });
   }
 
   useEffect(() => {

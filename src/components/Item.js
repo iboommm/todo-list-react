@@ -3,6 +3,7 @@ import { useModal, useTodo } from '../hooks';
 import * as dayjs from 'dayjs';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
 import { Icon } from './';
+import { apiGet } from '../api/connect';
 
 export function Item({ children, ...props }) {
   const { item } = props;
@@ -11,8 +12,10 @@ export function Item({ children, ...props }) {
 
   dayjs.extend(relativeTime);
 
-  function onClickEditTodo() {
-    handleShow('EDIT_TODO', item);
+  async function onClickEditTodo() {
+    const { id } = item;
+    const result = await apiGet(`todos/${id}`);
+    handleShow('EDIT_TODO', result);
     setForm(item);
   }
 
