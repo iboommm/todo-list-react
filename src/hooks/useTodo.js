@@ -1,5 +1,5 @@
 import React, { useState, useContext, createContext } from 'react';
-import { apiPost, apiPut } from '../api/connect';
+import { apiPost, apiPut, apiDelete } from '../api/connect';
 
 const todoContext = createContext();
 
@@ -51,5 +51,10 @@ export async function EditTodo(url, data) {
     title: data.title,
     description: data.description,
   });
+  return res;
+}
+
+export async function RemoveTodo(url, data) {
+  const res = await apiDelete(`${url}/${data.id}`);
   return res;
 }

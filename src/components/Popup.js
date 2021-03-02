@@ -34,10 +34,10 @@ export function Popup({
         {showBody && <Modal.Body>{children}</Modal.Body>}
         {showFooter && (
           <Modal.Footer>
-            <Button variant='secondary' onClick={handleClose}>
+            <Button onClick={handleClose} variant='secondary'>
               Close
             </Button>
-            <Button variant='primary' onClick={onSubmit}>
+            <Button onClick={onSubmit} variant='primary'>
               Submit
             </Button>
           </Modal.Footer>

@@ -8,6 +8,7 @@ export const useProvideModal = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = (name) => {
+    console.log(name);
     setName(name);
     setShow(true);
   };

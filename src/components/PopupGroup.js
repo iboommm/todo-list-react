@@ -8,6 +8,7 @@ import {
   useTodos,
   AddTodo,
   EditTodo,
+  RemoveTodo,
 } from '../hooks';
 import { Icon, FormTodo, Popup } from '../components';
 
@@ -36,18 +37,27 @@ export function PopupGroup() {
     modal.handleClose();
   }
 
+  async function onRemoveTodoSubmit() {
+    const result = await RemoveTodo('todos', { id });
+    if (result.status === 200) {
+      clear();
+      fetchList();
+    }
+    modal.handleClose();
+  }
+
   return (
     <div>
       {modal.name === 'ACCOUNT_SETTING' && (
         <Popup title='Account Setting' mode='hb' value={modal}>
           <Button
+            onClick={() => {
+              auth.signout(() => history.push('/'));
+            }}
             variant='danger'
             size='md'
             active
             block
-            onClick={() => {
-              auth.signout(() => history.push('/'));
-            }}
           >
             <Icon icon='sign-out-alt' /> Sign out
           </Button>
@@ -72,6 +82,14 @@ export function PopupGroup() {
         >
           <FormTodo />
         </Popup>
+      )}
+      {modal.name === 'REMOVE_TODO' && (
+        <Popup
+          title='Remove todo'
+          mode='hf'
+          value={modal}
+          onSubmit={onRemoveTodoSubmit}
+        ></Popup>
       )}
     </div>
   );

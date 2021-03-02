@@ -16,7 +16,7 @@ export function NavTop() {
       <Navbar.Toggle />
       <Navbar.Collapse className='justify-content-end'>
         <Navbar.Text>
-          <Button variant='outline-primary' size='sm' onClick={onClickProfile}>
+          <Button onClick={onClickProfile} variant='outline-primary' size='sm'>
             <Icon icon='user' /> Account
           </Button>
         </Navbar.Text>

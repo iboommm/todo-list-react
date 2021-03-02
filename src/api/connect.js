@@ -15,8 +15,8 @@ export const apiPut = (path, data) => {
   return axios.put(path, data);
 };
 
-export const apiDelete = (path, data) => {
-  return axios.delete(path + '/' + data);
+export const apiDelete = (path) => {
+  return axios.delete(path);
 };
 
 export const setToken = (token) => {

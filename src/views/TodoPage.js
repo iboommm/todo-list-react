@@ -22,7 +22,7 @@ export const TodoList = () => {
       </div>
 
       <Nav placement='bottom'>
-        <Button variant='primary' size='md' active block onClick={onClickAdd}>
+        <Button onClick={onClickAdd} variant='primary' size='md' active block>
           <Icon icon='plus' /> Add todo
         </Button>
       </Nav>
