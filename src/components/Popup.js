@@ -34,7 +34,7 @@ export function Popup({
             <Button onClick={handleClose} variant='secondary'>
               Close
             </Button>
-            <Button onClick={onSubmit} variant='primary'>
+            <Button type='submit' onClick={onSubmit} variant='primary'>
               Submit
             </Button>
           </Modal.Footer>

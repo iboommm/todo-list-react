@@ -12,28 +12,33 @@ export const useProvideTodo = () => {
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   function clear() {
     setTitle('');
     setDescription('');
     setId('');
+    setSubmitted(false);
   }
 
   function setForm(item) {
     setTitle(item.title);
     setDescription(item.description);
     setId(item._id);
+    setSubmitted(false);
   }
 
   return {
     title,
     description,
     id,
+    submitted,
     setTitle,
     setDescription,
     setId,
     clear,
     setForm,
+    setSubmitted,
   };
 };
 

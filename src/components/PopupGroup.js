@@ -15,24 +15,39 @@ import { Icon, FormTodo, Popup } from '../components';
 export function PopupGroup() {
   const modal = useModal();
   const auth = useAuth();
-  const { id, title, description, clear } = useTodo();
+  const { id, title, description, clear, setSubmitted } = useTodo();
   const { fetchList } = useTodos('todos');
   let history = useHistory();
 
+  function validated() {
+    if (title === '' || description === '') {
+      return false;
+    }
+    return true;
+  }
+
+  function ok() {
+    clear();
+    fetchList();
+    setSubmitted(false);
+  }
+
   async function onAddTodoSubmit() {
+    setSubmitted(true);
+    if (!validated()) return;
     const result = await AddTodo('todos', { title, description });
     if (result.status === 200) {
-      clear();
-      fetchList();
+      ok();
     }
     modal.handleClose();
   }
 
   async function onEditTodoSubmit() {
+    setSubmitted(true);
+    if (!validated()) return;
     const result = await EditTodo('todos', { id, title, description });
     if (result.status === 200) {
-      clear();
-      fetchList();
+      ok();
     }
     modal.handleClose();
   }
