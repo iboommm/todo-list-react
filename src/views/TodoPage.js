@@ -1,5 +1,5 @@
 import { Button } from 'react-bootstrap';
-import { Nav, NavTop, Item, Icon, PopupGroup } from '../components';
+import { Nav, NavTop, Item, Icon, PopupGroup, Backdrop } from '../components';
 import { useTodos, useModal, ProvideForm, ProvideList } from '../hooks';
 
 export const TodoList = () => {
@@ -12,6 +12,7 @@ export const TodoList = () => {
 
   return (
     <div className='content'>
+      <Backdrop />
       <Nav placement='top'>
         <NavTop />
       </Nav>

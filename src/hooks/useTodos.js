@@ -5,21 +5,24 @@ const todosContext = createContext();
 
 export function useProvideTodos() {
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function fetchList() {
+    setLoading(true);
     const res = await apiGet('todos');
     let { data } = res;
     data = data.sort(function (a, b) {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
     setTodos(data);
+    setLoading(false);
   }
 
   useEffect(() => {
     fetchList();
   }, []); // eslint-disable-line
 
-  return { todos, setTodos, fetchList };
+  return { todos, loading, setLoading, setTodos, fetchList };
 }
 
 export const ProvideList = ({ children }) => {
