@@ -12,7 +12,7 @@ export function useProvideTodos() {
 
   async function fetchList(isDone) {
     setLoading(true);
-    const res = apiGet('todos')
+    apiGet('todos')
       .then((res) => {
         let { data } = res;
         data = data.sort(function (a, b) {

@@ -5,7 +5,7 @@ import { Icon } from './';
 export function NavTop() {
   let auth = useAuth();
   let { handleShow } = useModal();
-  let { isDone, setIsDone, fetchList } = useTodos();
+  let { isDone, fetchList } = useTodos();
 
   function onClickProfile() {
     handleShow('ACCOUNT_SETTING');
