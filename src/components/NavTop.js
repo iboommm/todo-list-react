@@ -15,33 +15,32 @@ export function NavTop() {
     fetchList(!isDone);
   }
 
-  return auth.user ? (
-    <Container>
-      <Navbar.Brand href='#home'>My Todo</Navbar.Brand>
-      <Navbar.Toggle />
-      <Navbar.Collapse className='justify-content-end'>
-        <Navbar.Text>
-          <Button
-            className='mr-2'
-            onClick={onClickProfile}
-            variant='outline-primary'
-            size='sm'
-          >
-            <Icon icon='user' /> Account
-          </Button>
-          <Button
-            variant='outline-secondary'
-            size='sm'
-            className={isDone ? 'active' : ''}
-            onClick={onClickFilter}
-          >
-            <Icon icon='filter' />
-          </Button>
-        </Navbar.Text>
-      </Navbar.Collapse>
-    </Container>
-  ) : (
-    <p>You are not logged in.</p>
+  return (
+    auth.user && (
+      <Container>
+        <Navbar.Brand href='#home'>My Todo</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className='justify-content-end'>
+          <Navbar.Text>
+            <Button
+              className='mr-2'
+              onClick={onClickProfile}
+              variant='outline-primary'
+              size='sm'
+            >
+              <Icon icon='user' /> Account
+            </Button>
+            <Button
+              variant={isDone ? 'secondary' : 'outline-secondary'}
+              size='sm'
+              onClick={onClickFilter}
+            >
+              <Icon icon='filter' />
+            </Button>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Container>
+    )
   );
 }
 

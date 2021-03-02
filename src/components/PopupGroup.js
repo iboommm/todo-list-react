@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import {
   useModal,
@@ -17,6 +17,7 @@ export function PopupGroup() {
   const auth = useAuth();
   const { id, title, description, isDone, clear, setSubmitted } = useTodo();
   const { fetchList } = useTodos('todos');
+  const username = localStorage.getItem('username') || '';
   let history = useHistory();
 
   function validated() {
@@ -65,6 +66,7 @@ export function PopupGroup() {
     <div>
       {modal.name === 'ACCOUNT_SETTING' && (
         <Popup title='Account Setting' mode='hb' value={modal}>
+          <Alert variant='primary'>Welcome! {username}</Alert>
           <Button
             onClick={() => {
               auth.signout(() => history.push('/'));
