@@ -21,7 +21,10 @@ export function Item({ children, ...props }) {
   }
   return (
     <>
-      <Toast className='mw-100 ml-4 mr-4' onClose={() => onClickRemoveTodo()}>
+      <Toast
+        className='mw-100 ml-3 mr-3 animate__animated animate__fadeInRight animate__faster'
+        onClose={() => onClickRemoveTodo()}
+      >
         <Toast.Header>
           <strong onClick={onClickEditTodo} className='mr-auto'>
             {item.title}

@@ -17,6 +17,7 @@ export function Popup({
   return (
     <>
       <Modal
+        className='animate__animated animate__fadeInDown animate__faster'
         animation={false}
         show={show}
         onHide={handleClose}
