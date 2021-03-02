@@ -4,6 +4,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+  background-image: url('assets/images/bg.PNG');
 }
 
 code {
@@ -19,17 +20,18 @@ html, body, #root, .App {
   padding-top: 10px;
   margin-top: 60px;
   padding-bottom: 20px;
-  height: calc(100% - 120px);
+  height: calc(100% - 115px);
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .shadow-bottom {
-  box-shadow: 0px 5px 10px #d9d9d9;
+  box-shadow: 0px 5px 10px #666;
 }
 
 .shadow-top {
-  box-shadow: 0px -5px 10px #d9d9d9;
+  box-shadow: 0px -5px 10px #666;
 }
 
 .remove-button {
