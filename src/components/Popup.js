@@ -8,9 +8,6 @@ export function Popup({
   mode = 'hbf',
   onSubmit = () => {},
 }) {
-  <Button variant='primary' onClick={onSubmit}>
-    Submit
-  </Button>;
   const { show, handleClose } = value;
 
   const showHeader = mode.includes('h');
