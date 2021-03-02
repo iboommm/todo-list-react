@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import { useTodo } from '../hooks';
 
 export function FormTodo() {
-  const { setTitle, setDescription } = useTodo();
+  const { title, description, setTitle, setDescription } = useTodo();
 
   return (
     <div>
@@ -11,6 +11,7 @@ export function FormTodo() {
         <Form.Label>Title</Form.Label>
         <Form.Control
           type='text'
+          value={title}
           placeholder='Title'
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -20,6 +21,7 @@ export function FormTodo() {
         <Form.Control
           as='textarea'
           rows={3}
+          value={description}
           placeholder='Description'
           onChange={(e) => setDescription(e.target.value)}
         />

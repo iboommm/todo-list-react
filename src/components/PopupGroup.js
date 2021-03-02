@@ -1,18 +1,34 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { useModal, useAuth, useTodo, useTodos, AddTodo } from '../hooks';
+import {
+  useModal,
+  useAuth,
+  useTodo,
+  useTodos,
+  AddTodo,
+  EditTodo,
+} from '../hooks';
 import { Icon, FormTodo, Popup } from '../components';
 
 export function PopupGroup() {
   const modal = useModal();
   const auth = useAuth();
-  const { title, description, clear } = useTodo();
+  const { id, title, description, clear } = useTodo();
   const { fetchList } = useTodos('todos');
   let history = useHistory();
 
   async function onAddTodoSubmit() {
     const result = await AddTodo('todos', { title, description });
+    if (result.status === 200) {
+      clear();
+      fetchList();
+    }
+    modal.handleClose();
+  }
+
+  async function onEditTodoSubmit() {
+    const result = await EditTodo('todos', { id, title, description });
     if (result.status === 200) {
       clear();
       fetchList();
@@ -43,6 +59,16 @@ export function PopupGroup() {
           mode='hbf'
           value={modal}
           onSubmit={onAddTodoSubmit}
+        >
+          <FormTodo />
+        </Popup>
+      )}
+      {modal.name === 'EDIT_TODO' && (
+        <Popup
+          title='Edit todo'
+          mode='hbf'
+          value={modal}
+          onSubmit={onEditTodoSubmit}
         >
           <FormTodo />
         </Popup>

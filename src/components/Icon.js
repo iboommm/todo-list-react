@@ -9,9 +9,18 @@ import {
   faLock,
   faPlus,
   faSignOutAlt,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCheckSquare, faCoffee, faUser, faLock, faPlus, faSignOutAlt);
+library.add(
+  faCheckSquare,
+  faCoffee,
+  faUser,
+  faLock,
+  faPlus,
+  faSignOutAlt,
+  faTrash
+);
 
 export const Icon = (props) => {
   const { icon } = props;
