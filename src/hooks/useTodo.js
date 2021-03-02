@@ -12,6 +12,7 @@ export const useProvideTodo = () => {
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [isDone, setIsDone] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   function clear() {
@@ -25,6 +26,7 @@ export const useProvideTodo = () => {
     setTitle(item.title);
     setDescription(item.description);
     setId(item._id);
+    setIsDone(item.isDone);
     setSubmitted(false);
   }
 
@@ -33,12 +35,14 @@ export const useProvideTodo = () => {
     description,
     id,
     submitted,
+    isDone,
     setTitle,
     setDescription,
     setId,
     clear,
     setForm,
     setSubmitted,
+    setIsDone,
   };
 };
 
@@ -56,10 +60,21 @@ export async function EditTodo(url, data) {
     title: data.title,
     description: data.description,
   });
+  setDoneItem(data);
   return res;
 }
 
 export async function RemoveTodo(url, data) {
   const res = await apiDelete(`${url}/${data.id}`);
   return res;
+}
+
+function setDoneItem(data) {
+  const { id, isDone } = data;
+  const itemDone = localStorage.getItem('itemDone') || '[]';
+  let transformItems = JSON.parse(itemDone).filter((x) => x !== id);
+  if (isDone) {
+    transformItems.push(data.id);
+  }
+  localStorage.setItem('itemDone', JSON.stringify(transformItems));
 }

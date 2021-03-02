@@ -15,7 +15,7 @@ import { Icon, FormTodo, Popup } from '../components';
 export function PopupGroup() {
   const modal = useModal();
   const auth = useAuth();
-  const { id, title, description, clear, setSubmitted } = useTodo();
+  const { id, title, description, isDone, clear, setSubmitted } = useTodo();
   const { fetchList } = useTodos('todos');
   let history = useHistory();
 
@@ -45,7 +45,7 @@ export function PopupGroup() {
   async function onEditTodoSubmit() {
     setSubmitted(true);
     if (!validated()) return;
-    const result = await EditTodo('todos', { id, title, description });
+    const result = await EditTodo('todos', { id, title, description, isDone });
     if (result.status === 200) {
       ok();
     }

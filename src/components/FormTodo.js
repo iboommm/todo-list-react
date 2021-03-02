@@ -3,7 +3,15 @@ import { Form } from 'react-bootstrap';
 import { useTodo } from '../hooks';
 
 export function FormTodo() {
-  const { title, description, submitted, setTitle, setDescription } = useTodo();
+  const {
+    title,
+    description,
+    isDone,
+    submitted,
+    setTitle,
+    setDescription,
+    setIsDone,
+  } = useTodo();
 
   return (
     <div>
@@ -34,6 +42,13 @@ export function FormTodo() {
           Please provide a valid description.
         </Form.Control.Feedback>
       </Form.Group>
+      <Form.Check
+        type='switch'
+        onClick={(e) => setIsDone(!isDone)}
+        defaultChecked={isDone}
+        id='isDone'
+        label='Is done'
+      />
     </div>
   );
 }

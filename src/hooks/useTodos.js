@@ -14,6 +14,7 @@ export function useProvideTodos() {
     data = data.sort(function (a, b) {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
+    data = mergeTodoDone(data);
     setTodos(data);
     setLoading(false);
   }
@@ -35,3 +36,12 @@ export const ProvideList = ({ children }) => {
 export const useTodos = () => {
   return useContext(todosContext);
 };
+
+function mergeTodoDone(data) {
+  const itemDone = localStorage.getItem('itemDone') || '[]';
+  let transformItems = JSON.parse(itemDone);
+  return data.map((x) => {
+    x.isDone = transformItems.includes(x._id) ? true : false;
+    return x;
+  });
+}

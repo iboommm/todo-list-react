@@ -2,6 +2,7 @@ import { Toast } from 'react-bootstrap';
 import { useModal, useTodo } from '../hooks';
 import * as dayjs from 'dayjs';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
+import { Icon } from './';
 
 export function Item({ children, ...props }) {
   const { item } = props;
@@ -27,6 +28,12 @@ export function Item({ children, ...props }) {
       >
         <Toast.Header>
           <strong onClick={onClickEditTodo} className='mr-auto'>
+            {item.isDone && (
+              <span className='text-success'>
+                {' '}
+                <Icon icon='check' />{' '}
+              </span>
+            )}
             {item.title}
           </strong>
           <small>{dayjs(item.updatedAt).fromNow()}</small>
